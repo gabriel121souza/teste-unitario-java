@@ -2,7 +2,6 @@ package br.com.gabriel121souza.testunitario.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -11,19 +10,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User {
+public class LoginUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Integer id;
 
-    @Column
+    private Integer id;
     private String name;
 
-    @Column(unique = true)
     private String email;
-
-    @Column
     private String password;
 
 }

@@ -1,7 +1,7 @@
 package br.com.gabriel121souza.testunitario.controller;
 
-import br.com.gabriel121souza.testunitario.domain.User;
-import br.com.gabriel121souza.testunitario.service.UserService;
+import br.com.gabriel121souza.testunitario.domain.LoginUser;
+import br.com.gabriel121souza.testunitario.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable Integer id){
+    public ResponseEntity<LoginUser> findById(@PathVariable Integer id){
         return ResponseEntity.ok().body(userService.findById(id));
     }
 }
