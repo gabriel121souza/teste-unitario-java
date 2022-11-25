@@ -10,5 +10,7 @@ public interface UserService {
     LoginUser findById(Integer id);
     List<LoginUser> findAll();
     LoginUser create(LoginUserDTO obj);
+    LoginUser update(LoginUserDTO obj);
+    void delete(Integer id);
 
 }

@@ -6,6 +6,7 @@ import br.com.gabriel121souza.testunitario.repository.UserRepository;
 import br.com.gabriel121souza.testunitario.services.DataIntegratyViolationException;
 import br.com.gabriel121souza.testunitario.services.UserService;
 import br.com.gabriel121souza.testunitario.services.exceptions.ObjectNotFoundException;
+import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,16 @@ public class UserServiceImpl implements UserService {
         if(user.isPresent() && !user.get().getId().equals(obj.getId())) {
             throw new DataIntegratyViolationException("E-mail já cadastrado no sistema");
         }
+    }
+    @Override
+    public LoginUser update(LoginUserDTO obj) {
+        findByEmail(obj);
+        return userRepository.save(mapper.map(obj, LoginUser.class));
+    }
+
+    @Override
+    public void delete(Integer id) {
+        findById(id);
+        userRepository.deleteById(id);
     }
 }
