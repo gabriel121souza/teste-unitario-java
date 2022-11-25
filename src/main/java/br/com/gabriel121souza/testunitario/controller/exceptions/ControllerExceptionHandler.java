@@ -1,5 +1,6 @@
 package br.com.gabriel121souza.testunitario.controller.exceptions;
 
+import br.com.gabriel121souza.testunitario.services.DataIntegratyViolationException;
 import br.com.gabriel121souza.testunitario.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,5 +18,11 @@ public class ControllerExceptionHandler {
         StandardError error =
                 new StandardError(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(),ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+    @ExceptionHandler(DataIntegratyViolationException.class)
+    public ResponseEntity<StandardError>dataIntegrityViolationException(DataIntegratyViolationException ex, HttpServletRequest request) {
+        StandardError error =
+                new StandardError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
