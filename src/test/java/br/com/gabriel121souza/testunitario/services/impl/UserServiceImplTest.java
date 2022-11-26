@@ -3,6 +3,7 @@ package br.com.gabriel121souza.testunitario.services.impl;
 import br.com.gabriel121souza.testunitario.domain.DTO.LoginUserDTO;
 import br.com.gabriel121souza.testunitario.domain.LoginUser;
 import br.com.gabriel121souza.testunitario.repository.UserRepository;
+import br.com.gabriel121souza.testunitario.services.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,17 @@ class UserServiceImplTest {
         assertEquals(password, response.getPassword());
 
 
+    }
+
+    @Test
+    void whenFindByIdThenReturnAndObjectNotFoundException(){
+        when(userRepository.findById(anyInt())).thenThrow(new ObjectNotFoundException("Objeto não encontrado"));
+        try{
+            service.findById(id);
+        }catch (Exception e){
+            assertEquals(ObjectNotFoundException.class, e.getClass());
+            assertEquals("Objeto não encontrado", e.getMessage());
+        }
     }
 
     @Test

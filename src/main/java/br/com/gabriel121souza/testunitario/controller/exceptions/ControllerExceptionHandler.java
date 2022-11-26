@@ -1,6 +1,6 @@
 package br.com.gabriel121souza.testunitario.controller.exceptions;
 
-import br.com.gabriel121souza.testunitario.services.DataIntegratyViolationException;
+import br.com.gabriel121souza.testunitario.services.exceptions.DataIntegratyViolationException;
 import br.com.gabriel121souza.testunitario.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
