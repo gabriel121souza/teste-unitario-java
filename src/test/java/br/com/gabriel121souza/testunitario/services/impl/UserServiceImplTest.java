@@ -29,6 +29,7 @@ class UserServiceImplTest {
     private static final String OBJECT_NOT_FOUND = "Objeto não encontrado";
     private static final Integer INDEX = 0;
 
+    private static final String EMAIL_JA_CADASTRADO_NO_SISTEMA= "E-mail já cadastrado no sistema";
 
 
     //cria uma instancia real
@@ -109,8 +110,34 @@ class UserServiceImplTest {
           service.create(loginUserDTO);
       }catch (Exception ex){
           assertEquals(DataIntegratyViolationException.class, ex.getClass());
-          assertEquals("E-mail já cadastrado no sistema", ex.getMessage());
+          assertEquals(EMAIL_JA_CADASTRADO_NO_SISTEMA, ex.getMessage());
       }
+    }
+
+
+    @Test
+    void whenUpdateThenReturnSucess() {
+        when(userRepository.save(any())).thenReturn(loginUser);
+        LoginUser response  = service.update(loginUserDTO);
+
+        assertNotNull(response);
+        assertEquals(LoginUser.class, response.getClass());
+        assertEquals(id, response.getId());
+        assertEquals(name, response.getName());
+        assertEquals(email, response.getEmail());
+        assertEquals(password, response.getPassword());
+    }
+
+    @Test
+    void whenUpdateThenReturnDataIntegrityViolionException() {
+        when(userRepository.findByEmail(anyString())).thenReturn(loginUserOptional);
+        try{
+            loginUserOptional.get().setId(2);
+            service.create(loginUserDTO);
+        }catch (Exception ex){
+            assertEquals(DataIntegratyViolationException.class, ex.getClass());
+            assertEquals(EMAIL_JA_CADASTRADO_NO_SISTEMA, ex.getMessage());
+        }
     }
 
     @Test
