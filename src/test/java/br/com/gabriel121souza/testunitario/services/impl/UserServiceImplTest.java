@@ -3,6 +3,7 @@ package br.com.gabriel121souza.testunitario.services.impl;
 import br.com.gabriel121souza.testunitario.domain.DTO.LoginUserDTO;
 import br.com.gabriel121souza.testunitario.domain.LoginUser;
 import br.com.gabriel121souza.testunitario.repository.UserRepository;
+import br.com.gabriel121souza.testunitario.services.exceptions.DataIntegratyViolationException;
 import br.com.gabriel121souza.testunitario.services.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,7 +90,27 @@ class UserServiceImplTest {
     }
 
     @Test
-    void create() {
+    void whenCreateThenReturnSucess() {
+        when(userRepository.save(any())).thenReturn(loginUser);
+        LoginUser response  = service.create(loginUserDTO);
+        assertNotNull(response);
+        assertEquals(LoginUser.class, response.getClass());
+        assertEquals(id, response.getId());
+        assertEquals(name, response.getName());
+        assertEquals(email, response.getEmail());
+        assertEquals(password, response.getPassword());
+    }
+
+    @Test
+    void whenCreateThenReturnDataIntegrityViolionException() {
+        when(userRepository.findByEmail(anyString())).thenReturn(loginUserOptional);
+      try{
+          loginUserOptional.get().setId(2);
+          service.create(loginUserDTO);
+      }catch (Exception ex){
+          assertEquals(DataIntegratyViolationException.class, ex.getClass());
+          assertEquals("E-mail já cadastrado no sistema", ex.getMessage());
+      }
     }
 
     @Test
