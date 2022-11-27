@@ -141,12 +141,13 @@ class UserServiceImplTest {
     }
 
     @Test
-    void update() {
+    void deleteWithSuccess() {
+        when(userRepository.findById(anyInt())).thenReturn(loginUserOptional);
+        doNothing().when(userRepository).deleteById(anyInt());
+        service.delete(id);
+        verify(userRepository, times(1)).deleteById(anyInt());
     }
 
-    @Test
-    void delete() {
-    }
 
     private void startLoginUser(){
         loginUser= new LoginUser(id, name, email, password);
