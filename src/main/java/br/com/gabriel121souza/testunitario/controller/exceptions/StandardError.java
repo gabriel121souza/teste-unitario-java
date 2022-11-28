@@ -1,12 +1,10 @@
 package br.com.gabriel121souza.testunitario.controller.exceptions;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
-@Data
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
 public class StandardError {
     private LocalDateTime timeStamp;
