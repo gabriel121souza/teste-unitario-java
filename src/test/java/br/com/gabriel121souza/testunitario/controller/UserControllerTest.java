@@ -30,8 +30,8 @@ class UserControllerTest {
     private ModelMapper mapper;
 
 
-    private LoginUser loginUser;
-    private LoginUserDTO loginUserDTO;
+    private LoginUser loginUser = new LoginUser();
+    private LoginUserDTO loginUserDTO = new LoginUserDTO();
     private static final Integer ID = 1;
     private static final String NAME = "Gabriel";
     private static final String EMAIL = "Gabriel121souza@gmail.com";
