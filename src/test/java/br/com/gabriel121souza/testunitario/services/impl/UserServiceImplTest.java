@@ -165,7 +165,5 @@ class UserServiceImplTest {
         loginUser= new LoginUser(id, name, email, password);
         loginUserDTO= new LoginUserDTO(id, name, email, password);
          loginUserOptional= Optional.of(new LoginUser(id, name, email, password));
-
-
     }
 }
