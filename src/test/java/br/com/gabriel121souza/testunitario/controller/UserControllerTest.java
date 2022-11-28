@@ -3,17 +3,16 @@ package br.com.gabriel121souza.testunitario.controller;
 import br.com.gabriel121souza.testunitario.domain.DTO.LoginUserDTO;
 import br.com.gabriel121souza.testunitario.domain.LoginUser;
 import br.com.gabriel121souza.testunitario.services.UserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Optional;
+import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class UserControllerTest {
@@ -41,7 +40,17 @@ class UserControllerTest {
     }
 
     @Test
-    void findById() {
+    void whenFindindByIdThenReturnSuccess() {
+        when(userService.findById(anyInt())).thenReturn(loginUser);
+        when(mapper.map(any(), any())).thenReturn(loginUserDTO);
+        ResponseEntity<LoginUserDTO> response = userController.findById(ID);
+        assertNotNull(response.getBody());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(LoginUserDTO.class, response.getBody().getClass());
+        assertEquals(ID, response.getBody().getId());
+        assertEquals(NAME, response.getBody().getName());
+        assertEquals(EMAIL, response.getBody().getEmail());
+        assertEquals(PASSWORD, response.getBody().getPassword());
     }
 
     @Test
