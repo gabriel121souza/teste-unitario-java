@@ -110,7 +110,14 @@ class UserControllerTest {
     }
 
     @Test
-    void delete() {
+    void whenDeleteThenReturnSuccess() {
+        //utlizado para endpoints de delete.
+        doNothing().when(userService).delete(anyInt());
+        ResponseEntity<LoginUserDTO> response = userController.delete(ID);
+
+        assertEquals(ResponseEntity.class, response.getClass());
+        verify(userService, times(1)).delete(anyInt());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
     private void startLoginUser(){
