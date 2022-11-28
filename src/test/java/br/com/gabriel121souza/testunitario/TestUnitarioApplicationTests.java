@@ -7,7 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class TestUnitarioApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		TestUnitarioApplication.main(new String[]{
+
+		});
 	}
 
 }
